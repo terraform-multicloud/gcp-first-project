@@ -32,6 +32,21 @@ resource "google_compute_instance" "vm1" {
 
 }
 
+resource "google_compute_disk" "default" {
+  name  = "test-disk"
+  type  = "pd-ssd"
+  zone  = google_compute_instance.vm1.zone
+  size = 50
+}
+
+resource "google_compute_attached_disk" "attachdisk" {
+  instance = google_compute_instance.vm1.name
+  disk     = google_compute_disk.default.name
+  zone = google_compute_instance.vm1.zone
+  
+}
+
+
 
 resource "google_compute_network" "vpc_network" {
   name = "vpc-network"
