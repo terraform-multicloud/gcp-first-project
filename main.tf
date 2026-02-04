@@ -54,3 +54,21 @@ resource "google_compute_network" "vpc_network" {
 }
 
 
+data "google_compute_regions" "all-regions" {
+
+}
+
+resource "google_compute_network" "dummynetwork" {
+  name = "dummynetwork"
+  auto_create_subnetworks = false
+}
+
+resource "google_compute_subnetwork" "subnetworks" {
+  count = length(data.google_compute_regions.all-regions.names)
+  name          = "dummysubnetwork-${data.google_compute_regions.all-regions.names[count.index]}"
+  region = data.google_compute_regions.all-regions.names[count.index]
+  network       = google_compute_network.dummynetwork.id
+  ip_cidr_range = "10.0.${count.index+1}.0/24"
+  
+}
+
