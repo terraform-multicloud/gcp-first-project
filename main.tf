@@ -1,7 +1,7 @@
 # resource "google_storage_bucket" "gcs1" {
 #     name     = "himanshu-unique-bucket-name-12345"
 #     location = var.region
-  
+
 # }
 
 resource "google_compute_instance" "vm1" {
@@ -31,3 +31,5 @@ resource "google_compute_instance" "vm1" {
   }
 
 }
+
+
